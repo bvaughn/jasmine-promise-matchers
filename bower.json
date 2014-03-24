@@ -1,6 +1,6 @@
 {
     "name": "jasmine-promise-matchers",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "dist/jasmine-promise-matchers.js",
     "ignore": [
         "source",
@@ -15,11 +15,11 @@
         "README.md"
     ],
     "dependencies": {
-      "angular": "1.2.14",
+      "angular": "~1.2.15",
       "jquery": "1.9.1",
       "lodash": "2.2.1"
     },
     "devDependencies": {
-      "angular-mocks": "1.2.14"
+      "angular-mocks": "~1.2.15"
     }
 }
