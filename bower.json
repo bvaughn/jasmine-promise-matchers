@@ -16,9 +16,7 @@
         "README.md"
     ],
     "dependencies": {
-      "angular": "~1.2.15",
-      "jquery": "1.9.1",
-      "lodash": "2.2.1"
+      "angular": "~1.2.15"
     },
     "devDependencies": {
       "angular-mocks": "~1.2.15"
