@@ -2,6 +2,7 @@
     "name": "jasmine-promise-matchers",
     "version": "0.0.2",
     "main": "dist/jasmine-promise-matchers.js",
+    "license": "MIT",
     "ignore": [
         "source",
         "spec",
