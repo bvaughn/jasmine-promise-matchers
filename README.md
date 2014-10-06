@@ -28,3 +28,10 @@ Verifies that a Promise is resolved before the end of the test.
 ### toBeResolvedWith
 Verifies that a Promise is resolved with the specified parameter before the end of the test.
 >`expect(promise).toBeResolvedWith('something');`
+
+# Development
+
+* `npm install`
+* `bower install`
+
+Run `grunt -h` to see available tasks.
