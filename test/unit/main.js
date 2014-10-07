@@ -44,6 +44,13 @@ describe('Promise Matcher tests', function () {
     deferred.resolve('foobar');
   });
 
+  it('should allow usage of matchers in expectations in already-resolved', function() {
+    var deferred = $q.defer();
+    deferred.resolve({someProperty: 'someValue', somethingElse: 'dontCare'});
+
+    expect(deferred.promise).toBeResolvedWith(jasmine.objectContaining({someProperty: 'someValue'}));
+  });
+
   it('should recognized already-rejected promises as being rejected', function() {
     var deferred = $q.defer();
     deferred.reject();
@@ -64,6 +71,13 @@ describe('Promise Matcher tests', function () {
     expect(deferred.promise).toBeRejected();
 
     deferred.reject();
+  });
+
+  it('should allow usage of matchers in expectations in already-rejected', function() {
+    var deferred = $q.defer();
+    deferred.reject({someProperty: 'someValue', somethingElse: 'dontCare'});
+
+    expect(deferred.promise).toBeRejectedWith(jasmine.objectContaining({someProperty: 'someValue'}));
   });
 
   it('should recognized to-be-rejected promises as being rejected with expected arguments', function() {
