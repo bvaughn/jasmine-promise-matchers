@@ -30,7 +30,7 @@ beforeEach(function() {
               expect('Promise').toBe('rejected');
             },
             function(actual) {
-              expect(expected).toEqual(actual);
+              expect(actual).toEqual(expected);
             });
 
           return { pass: true };
@@ -55,7 +55,7 @@ beforeEach(function() {
         compare: function(promise, expected) {
           promise.then(
             function(actual) {
-              expect(expected).toEqual(actual);
+              expect(actual).toEqual(expected);
             },
             function() {
               expect('Promise').toBe('resolved');
