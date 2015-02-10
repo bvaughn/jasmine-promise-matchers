@@ -1,6 +1,6 @@
 {
     "name": "jasmine-promise-matchers",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "main": "dist/jasmine-promise-matchers.js",
     "license": "MIT",
     "ignore": [
