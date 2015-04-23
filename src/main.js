@@ -8,29 +8,43 @@
  */
 
 beforeEach(function() {
+  promiseStack = [];
+  addPromise = function(){
+    promiseStack.push(null);
+  };
+  removePromise = function(){
+    promiseStack.pop();
+  };
   jasmine.addMatchers({
     toBeRejected: function() {
+      addPromise();
       return {
         compare: function(promise) {
           promise.then(
             function() {
+              removePromise();
               expect('Promise').toBe('rejected');
             },
-            angular.noop);
+            function() {
+              removePromise();
+            });
 
           return { pass: true };
         }
       };
     },
     toBeRejectedWith: function() {
+      addPromise();
       return {
         compare: function(promise, expected) {
           promise.then(
             function() {
+              removePromise();
               expect('Promise').toBe('rejected');
             },
             function(actual) {
-              expect(expected).toEqual(actual);
+              removePromise();
+              expect(actual).toEqual(expected);
             });
 
           return { pass: true };
@@ -38,11 +52,15 @@ beforeEach(function() {
       };
     },
     toBeResolved: function() {
+      addPromise();
       return {
         compare: function(promise) {
           promise.then(
-            angular.noop,
             function() {
+              removePromise();
+            },
+            function() {
+              removePromise();
               expect('Promise').toBe('resolved');
           });
 
@@ -51,19 +69,26 @@ beforeEach(function() {
       };
     },
     toBeResolvedWith: function() {
+      addPromise();
       return {
         compare: function(promise, expected) {
           promise.then(
             function(actual) {
-              expect(expected).toEqual(actual);
-            },
+              removePromise();
+              expect(actual).toEqual(expected);
+            }, 
             function() {
+              removePromise();
               expect('Promise').toBe('resolved');
             });
-
           return { pass: true };
         }
       };
-    }
+    },
+
   });
+});
+
+afterEach(function() {
+  expect(promiseStack.length).toBe(0);
 });
