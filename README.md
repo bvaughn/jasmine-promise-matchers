@@ -1,7 +1,7 @@
 Jasmine Promise Matchers
 ================
 
-Custom matchers for use with **[Jasmine 1.3](http://jasmine.github.io/1.3/introduction.html)**/**[Jasmine 2.2](http://jasmine.github.io/2.0/introduction.html)** and **[Angular promises](http://docs.angularjs.org/api/ng/service/$q)**.
+Custom matchers for **[Angular promises](http://docs.angularjs.org/api/ng/service/$q)** and **[Jasmine 1.3 - 2.2](jasmine.github.io/)**.
 
 # Overview
 
