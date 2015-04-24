@@ -8,9 +8,6 @@ describe('Promise Matcher tests', function () {
     deferred = $q.defer();
   }));
 
-  afterEach(inject(function($injector) {
-  }));
-
   it('should recognized already-resolved promises as being resolved', function() {
     deferred.resolve();
 

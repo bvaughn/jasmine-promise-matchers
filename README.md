@@ -1,37 +1,50 @@
 Jasmine Promise Matchers
 ================
 
-Custom matchers for use with **[Jasmine 2.0](http://jasmine.github.io/2.0/introduction.html)** and **[Angular promises](http://docs.angularjs.org/api/ng/service/$q)**.
+Custom matchers for use with **[Jasmine 1.3](http://jasmine.github.io/1.3/introduction.html)**/**[Jasmine 2.2](http://jasmine.github.io/2.0/introduction.html)** and **[Angular promises](http://docs.angularjs.org/api/ng/service/$q)**.
 
-# Installing
-
-`bower install jasmine-promise-matchers --save`
-
-# Documentation
+# Overview
 
 Tests often require simple assertions about Promise resolution/rejection. This could be accomplished by spying on the Promise object *or* by chaining on another Promise (complete with *expects* statements)- but this is a lot of work. The following matchers allow basic assertions to be made about Promises via a brief expectation.
 
-Don't forget to trigger the digest loop after using one of these matchers!
+(Note that each of the below matchers triggers a `$rootScope` digest so that their resolve/reject methods will be triggered. You do not need to trigger this digest yourself but should be aware of it in case it impacts other asynchronous portions of your test.)
+
+
+# Installation
+
+```
+bower install jasmine-promise-matchers --save-dev
+npm install jasmine-promise-matchers --save-dev
+```
+
+# Matchers
 
 ### toBeRejected
-Verifies that a Promise is rejected before the end of the test.
->`expect(promise).toBeRejected();`
+Verifies that a Promise is (or has been) rejected.
+```js
+expect(promise).toBeRejected();
+```
 
 ### toBeRejectedWith
-Verifies that a Promise is rejected with the specified parameter before the end of the test.
->`expect(promise).toBeRejectedWith('something');`
+Verifies that a Promise is (or has been) rejected with the specified parameter.
+```js
+expect(promise).toBeRejectedWith('something');
+
+// Asymmetric matching is also supported for objects:
+expect(promise).toBeRejectedWith(jasmine.objectContaining({partial: 'match'}));
+```
 
 ### toBeResolved
-Verifies that a Promise is resolved before the end of the test.
->`expect(promise).toBeResolved();`
+Verifies that a Promise is (or has been) resolved.
+```js
+expect(promise).toBeResolved();
+```
 
 ### toBeResolvedWith
-Verifies that a Promise is resolved with the specified parameter before the end of the test.
->`expect(promise).toBeResolvedWith('something');`
+Verifies that a Promise is (or has been) resolved with the specified parameter.
+```js
+expect(promise).toBeResolvedWith('something');
 
-# Development
-
-* `npm install`
-* `bower install`
-
-Run `grunt -h` to see available tasks.
+// Asymmetric matching is also supported for objects:
+expect(promise).toBeResolvedWith(jasmine.objectContaining({partial: 'match'}));
+```

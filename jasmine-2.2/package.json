@@ -1,0 +1,37 @@
+{
+  "name": "jasmine-promise-matchers",
+  "version": "0.0.5",
+  "homepage": "https://github.com/bvaughn/jasmine-promise-matchers",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bvaughn/jasmine-promise-matchers.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "angular": "^1.3.15",
+    "angular-mocks": "^1.3.15",
+    "bower": "1.3.1",
+    "grunt": "0.4.1",
+    "grunt-concurrent": "0.3.0",
+    "grunt-contrib-clean": "0.4.1",
+    "grunt-contrib-concat": "0.3.0",
+    "grunt-contrib-copy": "0.4.1",
+    "grunt-contrib-jshint": "0.6.3",
+    "grunt-contrib-uglify": "0.2.0",
+    "grunt-contrib-watch": "0.4.0",
+    "grunt-karma": "0.8.0",
+    "grunt-lintspaces": "~0.4.1",
+    "grunt-replace": "0.4.4",
+    "grunt-usemin": "2.0.2",
+    "jasmine-core": "^2.2.0",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-cli": "0.0.4",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "0.1.0"
+  },
+  "scripts": {
+    "pretest": "cp ../source/source.js source.js",
+    "test": "karma start karma.conf.js --single-run --browsers PhantomJS"
+  }
+}

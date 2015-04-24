@@ -11,6 +11,19 @@
     RESOLVED: 'resolved',
   };
 
+  // Detect which version of Jasmine we are running under
+  var isJasmine2 = /^2/.test(jasmine.version);
+
+  // Determine if data is an asymmetric match (Jasmine's objectContaining)
+  var isObjectContaining = function(data) {
+    if (isJasmine2) {
+      return data.asymmetricMatch instanceof Function;
+    } else {
+      return data instanceof jasmine.Matchers.ObjectContaining;
+    }
+  };
+
+  // Helper method to verify expectations and return a Jasmine-friendly info-object
   var getPromiseInfo = function(promise, expectedState, expectedData) {
     var info = {};
 
@@ -30,8 +43,15 @@
     info.pass = info.actualState === expectedState;
 
     if (expectedData !== undefined && info.pass) {
-      if (jasmine.ObjectContaining && expectedData instanceof jasmine.ObjectContaining) {
-        info.pass = expectedData.asymmetricMatch(info.actualData);
+      if (isObjectContaining(expectedData)) {
+        info.pass = true;
+
+        for (var property in expectedData.sample) {
+          if (info.actualData[property] !== expectedData.sample[property]) {
+            info.pass = false;
+            break;
+          }
+        }
       } else {
         info.pass = angular.equals(info.actualData, expectedData);
       }
@@ -45,6 +65,7 @@
     return info;
   };
 
+  // Jasmine 1.x style matchers
   var jasmine1Matchers = {
     toBeRejected: function() {
       return getPromiseInfo(this.actual, PROMISE_STATE.REJECTED).pass;
@@ -60,6 +81,7 @@
     }
   };
 
+  // Jasmine 2.x style matchers
   var jasmine2Matchers = {
     toBeRejected: function() {
       return {
@@ -91,8 +113,9 @@
     }
   };
 
+  // Install the appropriate set of matchers based on which Jasmine version we're running with
   beforeEach(function() {
-    if (/^2/.test(jasmine.version)) {
+    if (isJasmine2) {
       jasmine.addMatchers(jasmine2Matchers);
     } else {
       this.addMatchers(jasmine1Matchers);
