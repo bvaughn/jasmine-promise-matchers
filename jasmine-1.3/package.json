@@ -31,7 +31,7 @@
     "karma-phantomjs-launcher": "0.1.0"
   },
   "scripts": {
-    "pretest": "cp ../source/source.js source.js",
+    "pretest": "cp ../karma.conf.js . && rm -rf source && cp -r ../source . && rm -rf tests && cp -r ../tests .",
     "test": "karma start karma.conf.js --single-run --browsers PhantomJS"
   }
 }
