@@ -1,12 +1,20 @@
 'use strict';
 
-describe('Promise Matcher tests', function () {
+// Allows for testing with angular.mock.module
+angular.module('foobar', []);
 
+describe('Promise Matcher tests', function () {
   var deferred;
 
-  beforeEach(inject(function($q) {
-    deferred = $q.defer();
-  }));
+  beforeEach(function() {
+    angular.mock.module('foobar');
+
+    installPromiseMatchers();
+
+    inject(function($q) {
+      deferred = $q.defer();
+    });
+  });
 
   it('should recognized already-resolved promises as being resolved', function() {
     deferred.resolve();

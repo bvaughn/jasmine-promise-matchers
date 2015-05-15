@@ -1,9 +1,13 @@
-(function() {
-  var $rootScope;
+var installPromiseMatchers;
 
-  beforeEach(inject(function($injector) {
-    $rootScope = $injector.get('$rootScope');
-  }));
+(function() {
+  var $scope;
+
+  installPromiseMatchers = function() {
+    inject(function($injector) {
+      $scope = $injector.get('$rootScope');
+    });
+  };
 
   var PROMISE_STATE = {
     PENDING: 'pending',
@@ -37,7 +41,7 @@
         info.actualState = PROMISE_STATE.REJECTED;
       });
 
-    $rootScope.$apply(); // Trigger Promise resolution
+    $scope.$apply(); // Trigger Promise resolution
 
     info.message = 'Expected ' + info.actualState + ' to be ' + expectedState;
     info.pass = info.actualState === expectedState;

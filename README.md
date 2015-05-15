@@ -17,6 +17,16 @@ bower install jasmine-promise-matchers --save-dev
 npm install jasmine-promise-matchers --save-dev
 ```
 
+To use this library in your Jasmine tests, simply install it like so:
+
+```
+beforeEach(function() {
+  installPromiseMatchers();
+});
+```
+
+Be sure to call [`angular.mock.module`](https://docs.angularjs.org/api/ngMock/function/angular.mock.module) before installing the promise matcher library (because the promise matcher installer uses the `injector`).
+
 # Matchers
 
 ### toBeRejected
