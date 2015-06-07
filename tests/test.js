@@ -44,10 +44,16 @@ describe('Promise Matcher tests', function () {
     expect(deferred.promise).not.toBeResolvedWith('bar');
   });
 
-  it('should allow usage of matchers in expectations in already-resolved', function() {
+  it('should allow usage of objectContaining matchers in expectations in already-resolved', function() {
     deferred.resolve({someProperty: 'someValue', somethingElse: 'dontCare'});
 
     expect(deferred.promise).toBeResolvedWith(jasmine.objectContaining({someProperty: 'someValue'}));
+  });
+
+  it('should allow usage of any matchers in expectations in already-resolved', function() {
+    deferred.resolve('foobar');
+
+    expect(deferred.promise).toBeResolvedWith(jasmine.any(String));
   });
 
   it('should recognized already-rejected promises as being rejected', function() {
@@ -62,10 +68,16 @@ describe('Promise Matcher tests', function () {
     expect(deferred.promise).toBeRejectedWith('foobar');
   });
 
-  it('should allow usage of matchers in expectations in already-rejected', function() {
+  it('should allow usage of objectContaining matchers in expectations in already-rejected', function() {
     deferred.reject({someProperty: 'someValue', somethingElse: 'dontCare'});
 
     expect(deferred.promise).toBeRejectedWith(jasmine.objectContaining({someProperty: 'someValue'}));
+  });
+
+  it('should allow usage of any matchers in expectations in already-rejected', function() {
+    deferred.reject('foobar');
+
+    expect(deferred.promise).toBeRejectedWith(jasmine.any(String));
   });
 
   it('should not accept pending promises as rejected', function() {
