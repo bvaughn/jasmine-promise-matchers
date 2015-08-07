@@ -1,7 +1,7 @@
 Jasmine Promise Matchers
 ================
 
-Custom matchers for **[Angular promises](http://docs.angularjs.org/api/ng/service/$q)** and **[Jasmine 1.3 - 2.2](https://jasmine.github.io/)**.
+Custom matchers for **[Angular promises](http://docs.angularjs.org/api/ng/service/$q)** and **[Jasmine 1.3 - 2.x](https://jasmine.github.io/)**.
 
 # Overview
 
@@ -26,6 +26,12 @@ beforeEach(function() {
 ```
 
 Be sure to call [`angular.mock.module`](https://docs.angularjs.org/api/ngMock/function/angular.mock.module) before installing the promise matcher library (because the promise matcher installer uses the `injector`).
+
+
+# Sublime Plugin
+
+[@Hyzual](https://github.com/Hyzual) has created a Sublime plugin for this library. Find our more info about that plugin [here](https://packagecontrol.io/packages/Jasmine%20Promise%20Matchers).
+
 
 # Matchers
 
