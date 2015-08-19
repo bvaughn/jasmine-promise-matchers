@@ -12,17 +12,42 @@ Tests often require simple assertions about Promise resolution/rejection. This c
 
 # Installation
 
+First install the library using NPM or Bower like so:
+
 ```
 bower install jasmine-promise-matchers --save-dev
 npm install jasmine-promise-matchers --save-dev
 ```
 
-To use this library in your Jasmine tests, simply install it like so:
+Then modify your `karma.conf.js` config file to load the library like so:
+
+```javascript
+module.exports = function (config) {
+  config.set({
+    frameworks: ['jasmine'],
+    files: [
+      "node_modules/jasmine-promise-matchers/dist/jasmine-promise-matchers.js"
+      // Your source (e.g. source/**/*.js)
+      // Your tests (e.g. tests/**/*.js)
+    ]
+    // Other configuration
+  });
+};
 
 ```
-beforeEach(function() {
-  installPromiseMatchers();
-});
+
+Lastly be sure to load the custom Jasmine matchers before your tests run like so:
+
+```javascript
+  beforeEach(function() {
+    angular.mock.module('your-module');
+
+    installPromiseMatchers();
+
+    inject(function() {
+      // Your injected services
+    });
+  });
 ```
 
 Be sure to call [`angular.mock.module`](https://docs.angularjs.org/api/ngMock/function/angular.mock.module) before installing the promise matcher library (because the promise matcher installer uses the `injector`).
