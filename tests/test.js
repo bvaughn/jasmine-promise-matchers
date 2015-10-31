@@ -95,4 +95,17 @@ describe('Promise Matcher tests', function () {
 
     expect(deferred.promise).not.toBeRejectedWith('bar');
   });
+
+  it('should recognized $q promises as promises', function() {
+    expect(deferred.promise).toBePromise();
+  });
+
+  it('should recognized things that are not $q promises as such', function() {
+    expect(undefined).not.toBePromise();
+    expect(null).not.toBePromise();
+    expect('').not.toBePromise();
+    expect('foo').not.toBePromise();
+    expect(1).not.toBePromise();
+    expect({}).not.toBePromise();
+  });
 });

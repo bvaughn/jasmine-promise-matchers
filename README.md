@@ -60,6 +60,12 @@ Be sure to call [`angular.mock.module`](https://docs.angularjs.org/api/ngMock/fu
 
 # Matchers
 
+### toBePromise
+Verifies that a value is a $q Promise.
+```js
+expect(promise).toBePromise();
+```
+
 ### toBeRejected
 Verifies that a Promise is (or has been) rejected.
 ```js
@@ -89,3 +95,17 @@ expect(promise).toBeResolvedWith('something');
 // Asymmetric matching is also supported for objects:
 expect(promise).toBeResolvedWith(jasmine.objectContaining({partial: 'match'}));
 ```
+
+# Development
+
+If you'd like to contribute to this project you'll need to initialize it like so:
+```
+cd <path-to-project>
+npm i
+cd jasmine-1.3
+npm i
+cd ../jasmine-2.2
+npm i
+```
+
+At this point you should be able to build via `grunt build` and run unit tests via `grunt test`. Tests will be run against both Jasmine 1.3 and 2.2 flavors.

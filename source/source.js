@@ -71,8 +71,18 @@ var installPromiseMatchers;
     return info;
   };
 
+  var isPromise = function(value) {
+    return {
+      message: 'Expected ' + value + ' to be a Promise',
+      pass: value && value.then instanceof Function
+    };
+  };
+
   // Jasmine 1.x style matchers
   var jasmine1Matchers = {
+    toBePromise: function() {
+      return isPromise(this.actual);
+    },
     toBeRejected: function() {
       return getPromiseInfo(this.actual, PROMISE_STATE.REJECTED).pass;
     },
@@ -89,6 +99,13 @@ var installPromiseMatchers;
 
   // Jasmine 2.x style matchers
   var jasmine2Matchers = {
+    toBePromise: function() {
+      return {
+        compare: function(promise) {
+          return isPromise(promise);
+        }
+      };
+    },
     toBeRejected: function() {
       return {
         compare: function(promise) {
