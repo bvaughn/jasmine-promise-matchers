@@ -108,4 +108,19 @@ describe('Promise Matcher tests', function () {
     expect(1).not.toBePromise();
     expect({}).not.toBePromise();
   });
+
+  it('should ignore functions when evaulating equality (unless a Jasmine asymmetric equality matcher has been used)', function() {
+    var objectA = {
+      foo: 'bar',
+      baz: function() {}
+    };
+    var objectB = {
+      foo: 'bar',
+      baz: function() {}
+    };
+
+    deferred.resolve(objectA);
+
+    expect(deferred.promise).toBeResolvedWith(objectB);
+  });
 });

@@ -50,7 +50,13 @@ var installPromiseMatchers;
 
       // Jasmine 2
       if (opt_util) {
-        info.pass = opt_util.equals(info.actualData, opt_expectedData, opt_customEqualityTesters);
+        // Detect Jasmine's asymmetric equality matchers and use Jasmine's own equality test for them
+        // Otherwise use Angular's equality check since it ignores properties that are functions
+        if (opt_expectedData && opt_expectedData.asymmetricMatch) {
+          info.pass = opt_util.equals(info.actualData, opt_expectedData, opt_customEqualityTesters);
+        } else {
+          info.pass = angular.equals(info.actualData, opt_expectedData);
+        }
 
       // Jasmine 1.3
       } else {
