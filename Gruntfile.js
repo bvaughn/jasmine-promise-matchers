@@ -17,6 +17,11 @@ module.exports = function(grunt) {
       }
     },
     uglify: {
+      options: {
+        mangle: {
+          except: ['$injector']
+        }
+      },
       build: {
         src: 'dist/jasmine-promise-matchers.js',
         dest: 'dist/jasmine-promise-matchers.min.js'
