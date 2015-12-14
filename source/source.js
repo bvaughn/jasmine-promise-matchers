@@ -4,7 +4,7 @@ var installPromiseMatchers;
   var $scope;
 
   installPromiseMatchers = function() {
-    inject(function($injector) {
+    angular.mock.inject(function($injector) {
       $scope = $injector.get('$rootScope');
     });
   };
