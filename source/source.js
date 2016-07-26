@@ -1,11 +1,15 @@
 var installPromiseMatchers;
 
 (function() {
-  var $scope;
+  var $scope,
+      $httpBackend,
+      $timeout;
 
   installPromiseMatchers = function() {
     angular.mock.inject(function($injector) {
       $scope = $injector.get('$rootScope');
+      $httpBackend = $injector.get('$httpBackend');
+      $timeout = $injector.get('$timeout');
     });
   };
 
@@ -41,6 +45,24 @@ var installPromiseMatchers;
       });
 
     $scope.$apply(); // Trigger Promise resolution
+
+    // Trigger $httpBackend flush if any requests are pending
+    try {
+      $httpBackend.flush();
+    } catch (err) {
+      if (err.message !== 'No pending request to flush !') {
+        throw err;
+      }
+    }
+
+    // Trigger $timeout flush if any deferred tasks are pending
+    try {
+      $timeout.flush();
+    } catch (err) {
+      if (err.message !== 'No deferred tasks to be flushed') {
+        throw err;
+      }
+    }
 
     info.message = 'Expected ' + info.actualState + ' to be ' + expectedState;
     info.pass = info.actualState === expectedState;
