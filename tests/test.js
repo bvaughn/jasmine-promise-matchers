@@ -4,15 +4,24 @@
 angular.module('foobar', []);
 
 describe('Promise Matcher tests', function () {
-  var deferred;
+  var deferred,
+      $http,
+      $httpBackend,
+      $timeout;
 
   beforeEach(function() {
     angular.mock.module('foobar');
 
     installPromiseMatchers();
 
-    inject(function($q) {
+    inject(function($q,
+                    _$http_,
+                    _$httpBackend_,
+                    _$timeout_) {
       deferred = $q.defer();
+      $http = _$http_;
+      $httpBackend = _$httpBackend_;
+      $timeout = _$timeout_;
     });
   });
 
@@ -122,5 +131,18 @@ describe('Promise Matcher tests', function () {
     deferred.resolve(objectA);
 
     expect(deferred.promise).toBeResolvedWith(objectB);
+  });
+
+  it('should flush pending $timeouts', function() {
+    $timeout(function() {
+      deferred.resolve();
+    }, 1000);
+
+    expect(deferred.promise).toBeResolved();
+  });
+
+  it('should flush pending $http requests', function() {
+    $httpBackend.expectGET('/test').respond(200);
+    expect($http.get('/test')).toBeResolved();
   });
 });
