@@ -20,7 +20,7 @@
     "grunt-contrib-uglify": "0.2.0",
     "grunt-contrib-watch": "0.4.0",
     "grunt-karma": "0.8.0",
-    "grunt-lintspaces": "~0.4.1",
+    "grunt-lintspaces": "~0.8.0",
     "grunt-replace": "0.4.4",
     "grunt-usemin": "2.0.2",
     "jasmine": "^2.3.2",
