@@ -21,6 +21,7 @@
     "grunt-karma": "0.8.0",
     "grunt-replace": "0.4.4",
     "grunt-shell": "^1.1.2",
-    "grunt-usemin": "2.0.2"
+    "grunt-usemin": "2.0.2",
+    "phantomjs-prebuilt": "^2.1.9"
   }
 }

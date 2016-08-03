@@ -100,8 +100,6 @@ expect(promise).toBeResolvedWith(jasmine.objectContaining({partial: 'match'}));
 
 If you'd like to contribute to this project you'll need to initialize it like so:
 ```
-npm install --global phantomjs-prebuilt
-export PHANTOMJS_BIN=/usr/local/bin/phantomjs
 cd <path-to-project>
 npm i
 cd jasmine-1.3
