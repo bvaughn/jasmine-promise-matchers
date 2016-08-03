@@ -145,4 +145,17 @@ describe('Promise Matcher tests', function () {
     $httpBackend.expectGET('/test').respond(200);
     expect($http.get('/test')).toBeResolved();
   });
+
+  it('should not call $httpBackend.flush() when the promise is already resolved', function () {
+    spyOn($httpBackend, 'flush');
+    deferred.resolve();
+    expect(deferred.promise).toBeResolved();
+    expect($httpBackend.flush).not.toHaveBeenCalled();
+  });
+  it('should not call $timeout.flush() when the promise is already resolved', function () {
+    spyOn($timeout, 'flush');
+    deferred.resolve();
+    expect(deferred.promise).toBeResolved();
+    expect($timeout.flush).not.toHaveBeenCalled();
+  });
 });

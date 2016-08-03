@@ -46,21 +46,23 @@ var installPromiseMatchers;
 
     $scope.$apply(); // Trigger Promise resolution
 
-    // Trigger $httpBackend flush if any requests are pending
-    try {
-      $httpBackend.flush();
-    } catch (err) {
-      if (err.message !== 'No pending request to flush !') {
-        throw err;
+    if (!info.actualState) {
+      // Trigger $httpBackend flush if any requests are pending
+      try {
+        $httpBackend.flush();
+      } catch (err) {
+        if (err.message !== 'No pending request to flush !') {
+          throw err;
+        }
       }
-    }
 
-    // Trigger $timeout flush if any deferred tasks are pending
-    try {
-      $timeout.flush();
-    } catch (err) {
-      if (err.message !== 'No deferred tasks to be flushed') {
-        throw err;
+      // Trigger $timeout flush if any deferred tasks are pending
+      try {
+        $timeout.flush();
+      } catch (err) {
+        if (err.message !== 'No deferred tasks to be flushed') {
+          throw err;
+        }
       }
     }
 
