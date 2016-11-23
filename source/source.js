@@ -19,15 +19,7 @@ var installPromiseMatchers;
     RESOLVED: 'resolved',
   };
 
-  var prettyPrint = jasmine.pp || function(data) {
-    if (typeof data === 'object') {
-      return JSON.stringify(data);
-    }
-    else {
-      return data.toString();
-    }
-  };
-  
+   
   /**
    * Helper method to verify expectations and return a Jasmine-friendly info-object.
    *
@@ -101,8 +93,8 @@ var installPromiseMatchers;
         }
       }
 
-      var actual = prettyPrint(info.actualData);
-      var expected = prettyPrint(opt_expectedData);
+      var actual = jasmine.pp(info.actualData);
+      var expected = jasmine.pp(opt_expectedData);
 
       info.message = 'Expected ' + actual + ' to be ' + expected;
     }
