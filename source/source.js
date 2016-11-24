@@ -19,6 +19,7 @@ var installPromiseMatchers;
     RESOLVED: 'resolved',
   };
 
+   
   /**
    * Helper method to verify expectations and return a Jasmine-friendly info-object.
    *
@@ -92,8 +93,8 @@ var installPromiseMatchers;
         }
       }
 
-      var actual = typeof info.actualData === 'object' ? JSON.stringify(info.actualData) : info.actualData;
-      var expected = typeof opt_expectedData === 'object' ? JSON.stringify(opt_expectedData) : opt_expectedData;
+      var actual = jasmine.pp(info.actualData);
+      var expected = jasmine.pp(opt_expectedData);
 
       info.message = 'Expected ' + actual + ' to be ' + expected;
     }
