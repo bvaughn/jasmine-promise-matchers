@@ -7,7 +7,8 @@ describe('Promise Matcher tests', function () {
   var deferred,
       $http,
       $httpBackend,
-      $timeout;
+      $timeout,
+      $interval;
 
   beforeEach(function() {
     angular.mock.module('foobar');
@@ -17,11 +18,13 @@ describe('Promise Matcher tests', function () {
     inject(function($q,
                     _$http_,
                     _$httpBackend_,
-                    _$timeout_) {
+                    _$timeout_,
+                    _$interval_) {
       deferred = $q.defer();
       $http = _$http_;
       $httpBackend = _$httpBackend_;
       $timeout = _$timeout_;
+      $interval = _$interval_;
     });
   });
 
@@ -141,6 +144,14 @@ describe('Promise Matcher tests', function () {
     expect(deferred.promise).toBeResolved();
   });
 
+  it('should flush pending $interval', function() {
+    $interval(function() {
+      deferred.resolve();
+    }, 1000, 100);
+
+    expect(deferred.promise).toBeResolved();
+  });
+
   it('should flush pending $http requests', function() {
     $httpBackend.expectGET('/test').respond(200);
     expect($http.get('/test')).toBeResolved();
@@ -157,5 +168,11 @@ describe('Promise Matcher tests', function () {
     deferred.resolve();
     expect(deferred.promise).toBeResolved();
     expect($timeout.flush).not.toHaveBeenCalled();
+  });
+  it('should not call $interval.flush() when the promise is already resolved', function () {
+    spyOn($interval, 'flush');
+    deferred.resolve();
+    expect(deferred.promise).toBeResolved();
+    expect($interval.flush).not.toHaveBeenCalled();
   });
 });

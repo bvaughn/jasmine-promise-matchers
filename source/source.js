@@ -3,13 +3,15 @@ var installPromiseMatchers;
 (function() {
   var $scope,
       $httpBackend,
-      $timeout;
+      $timeout,
+      $interval;
 
   installPromiseMatchers = function() {
     angular.mock.inject(function($injector) {
       $scope = $injector.get('$rootScope');
       $httpBackend = $injector.get('$httpBackend');
       $timeout = $injector.get('$timeout');
+      $interval = $injector.get('$interval');
     });
   };
 
@@ -19,7 +21,7 @@ var installPromiseMatchers;
     RESOLVED: 'resolved',
   };
 
-   
+
   /**
    * Helper method to verify expectations and return a Jasmine-friendly info-object.
    *
@@ -60,6 +62,15 @@ var installPromiseMatchers;
       // Trigger $timeout flush if any deferred tasks are pending
       try {
         $timeout.flush();
+      } catch (err) {
+        if (err.message !== 'No deferred tasks to be flushed') {
+          throw err;
+        }
+      }
+
+      // Trigger $interval flush if any deferred tasks are pending
+      try {
+        $interval.flush();
       } catch (err) {
         if (err.message !== 'No deferred tasks to be flushed') {
           throw err;
