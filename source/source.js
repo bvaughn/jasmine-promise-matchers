@@ -70,7 +70,8 @@ var installPromiseMatchers;
 
       // Trigger $interval flush if any deferred tasks are pending
       try {
-        $interval.flush();
+        // Flushing $interval requires an amount of time, I believe this number should flush pretty much anything useful...
+        $interval.flush(100000);
       } catch (err) {
         if (err.message !== 'No deferred tasks to be flushed') {
           throw err;
