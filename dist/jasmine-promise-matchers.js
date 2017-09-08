@@ -3,15 +3,13 @@ var installPromiseMatchers;
 (function() {
   var $scope,
       $httpBackend,
-      $timeout,
-      $interval;
+      $timeout;
 
   installPromiseMatchers = function() {
     angular.mock.inject(function($injector) {
       $scope = $injector.get('$rootScope');
       $httpBackend = $injector.get('$httpBackend');
       $timeout = $injector.get('$timeout');
-      $interval = $injector.get('$interval');
     });
   };
 
@@ -20,7 +18,6 @@ var installPromiseMatchers;
     REJECTED: 'rejected',
     RESOLVED: 'resolved',
   };
-
 
   /**
    * Helper method to verify expectations and return a Jasmine-friendly info-object.
@@ -67,16 +64,6 @@ var installPromiseMatchers;
           throw err;
         }
       }
-
-      // Trigger $interval flush if any deferred tasks are pending
-      try {
-        // Flushing $interval requires an amount of time, I believe this number should flush pretty much anything useful...
-        $interval.flush(100000);
-      } catch (err) {
-        if (err.message !== 'No deferred tasks to be flushed') {
-          throw err;
-        }
-      }
     }
 
     info.message = 'Expected ' + info.actualState + ' to be ' + expectedState;
@@ -105,8 +92,8 @@ var installPromiseMatchers;
         }
       }
 
-      var actual = jasmine.pp(info.actualData);
-      var expected = jasmine.pp(opt_expectedData);
+      var actual = typeof info.actualData === 'object' ? JSON.stringify(info.actualData) : info.actualData;
+      var expected = typeof opt_expectedData === 'object' ? JSON.stringify(opt_expectedData) : opt_expectedData;
 
       info.message = 'Expected ' + actual + ' to be ' + expected;
     }
