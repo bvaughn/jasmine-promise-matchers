@@ -13,7 +13,11 @@ describe('Promise Matcher tests', function () {
   beforeEach(function() {
     angular.mock.module('foobar');
 
-    installPromiseMatchers();
+    installPromiseMatchers({
+      httpBackend: true,
+      interval: true,
+      timeout: true
+    });
 
     inject(function($q,
                     _$http_,

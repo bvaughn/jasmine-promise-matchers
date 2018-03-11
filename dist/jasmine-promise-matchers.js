@@ -6,12 +6,19 @@ var installPromiseMatchers;
       $timeout,
       $interval;
 
-  installPromiseMatchers = function() {
+  installPromiseMatchers = function(options) {
+    options = options || {};
     angular.mock.inject(function($injector) {
       $scope = $injector.get('$rootScope');
-      $httpBackend = $injector.get('$httpBackend');
-      $timeout = $injector.get('$timeout');
-      $interval = $injector.get('$interval');
+      if (options.httpBackend) {
+        $httpBackend = $injector.get('$httpBackend');
+      }
+      if (options.timeout) {
+        $timeout = $injector.get('$timeout');
+      }
+      if (options.interval) {
+        $interval = $injector.get('$interval');
+      }
     });
   };
 
@@ -51,30 +58,36 @@ var installPromiseMatchers;
 
     if (!info.actualState) {
       // Trigger $httpBackend flush if any requests are pending
-      try {
-        $httpBackend.flush();
-      } catch (err) {
-        if (err.message !== 'No pending request to flush !') {
-          throw err;
+      if ($httpBackend) {
+        try {
+          $httpBackend.flush();
+        } catch (err) {
+          if (err.message !== 'No pending request to flush !') {
+            throw err;
+          }
         }
       }
 
       // Trigger $timeout flush if any deferred tasks are pending
-      try {
-        $timeout.flush();
-      } catch (err) {
-        if (err.message !== 'No deferred tasks to be flushed') {
-          throw err;
+      if ($timeout) {
+        try {
+          $timeout.flush();
+        } catch (err) {
+          if (err.message !== 'No deferred tasks to be flushed') {
+            throw err;
+          }
         }
       }
 
       // Trigger $interval flush if any deferred tasks are pending
-      try {
-        // Flushing $interval requires an amount of time, I believe this number should flush pretty much anything useful...
-        $interval.flush(100000);
-      } catch (err) {
-        if (err.message !== 'No deferred tasks to be flushed') {
-          throw err;
+      if ($interval) {
+        try {
+          // Flushing $interval requires an amount of time, I believe this number should flush pretty much anything useful...
+          $interval.flush(100000);
+        } catch (err) {
+          if (err.message !== 'No deferred tasks to be flushed') {
+            throw err;
+          }
         }
       }
     }

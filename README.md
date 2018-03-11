@@ -50,6 +50,21 @@ Lastly be sure to load the custom Jasmine matchers before your tests run like so
   });
 ```
 
+If you would like the promise matchers to flush $httpBackend, $interval, or $timeout automatically, some options are available:
+
+```javascript
+  beforeEach(function() {
+
+    installPromiseMatchers({
+      httpBackend: true,
+      interval: true,
+      timeout: true
+    });
+
+  });
+```
+
+
 Be sure to call [`angular.mock.module`](https://docs.angularjs.org/api/ngMock/function/angular.mock.module) before installing the promise matcher library (because the promise matcher installer uses the `injector`).
 
 
