@@ -13,11 +13,7 @@ describe('Promise Matcher tests', function () {
   beforeEach(function() {
     angular.mock.module('foobar');
 
-    installPromiseMatchers({
-      httpBackend: true,
-      interval: true,
-      timeout: true
-    });
+    installPromiseMatchers();
 
     inject(function($q,
                     _$http_,
@@ -167,12 +163,14 @@ describe('Promise Matcher tests', function () {
     expect(deferred.promise).toBeResolved();
     expect($httpBackend.flush).not.toHaveBeenCalled();
   });
+
   it('should not call $timeout.flush() when the promise is already resolved', function () {
     spyOn($timeout, 'flush');
     deferred.resolve();
     expect(deferred.promise).toBeResolved();
     expect($timeout.flush).not.toHaveBeenCalled();
   });
+
   it('should not call $interval.flush() when the promise is already resolved', function () {
     spyOn($interval, 'flush');
     deferred.resolve();

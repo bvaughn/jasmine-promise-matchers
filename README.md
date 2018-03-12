@@ -50,17 +50,15 @@ Lastly be sure to load the custom Jasmine matchers before your tests run like so
   });
 ```
 
-If you would like the promise matchers to flush $httpBackend, $interval, or $timeout automatically, some options are available:
+By default, this matcher flushes `$httpBackend`, `$interval`, and `$timeout` automatically. This can be overridden when installing the matcher like so:
 
 ```javascript
   beforeEach(function() {
-
     installPromiseMatchers({
-      httpBackend: true,
-      interval: true,
-      timeout: true
+      flushHttpBackend: false,
+      flushInterval: false,
+      flushTimeout: false
     });
-
   });
 ```
 
@@ -115,6 +113,7 @@ expect(promise).toBeResolvedWith(jasmine.objectContaining({partial: 'match'}));
 
 If you'd like to contribute to this project you'll need to initialize it like so:
 ```
+npm i -g karma
 cd <path-to-project>
 npm i
 cd jasmine-1.3
