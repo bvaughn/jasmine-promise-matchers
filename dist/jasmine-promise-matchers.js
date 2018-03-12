@@ -10,13 +10,13 @@ var installPromiseMatchers;
     options = options || {};
     angular.mock.inject(function($injector) {
       $scope = $injector.get('$rootScope');
-      if (options.httpBackend) {
+      if (options.flushHttpBackend !== false) {
         $httpBackend = $injector.get('$httpBackend');
       }
-      if (options.timeout) {
+      if (options.flushTimeout !== false) {
         $timeout = $injector.get('$timeout');
       }
-      if (options.interval) {
+      if (options.flushInterval !== false) {
         $interval = $injector.get('$interval');
       }
     });
