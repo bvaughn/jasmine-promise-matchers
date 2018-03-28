@@ -193,14 +193,14 @@ var installPromiseMatchers;
   };
 
   // Detect which version of Jasmine we are running under
-  var isJasmine2 = /^2/.test(jasmine.version);
+  var isJasmine1 = /^1/.test(jasmine.version);
 
   // Install the appropriate set of matchers based on which Jasmine version we're running with
   beforeEach(function() {
-    if (isJasmine2) {
-      jasmine.addMatchers(jasmine2Matchers);
-    } else {
+    if (isJasmine1) {
       this.addMatchers(jasmine1Matchers);
+    } else {
+      jasmine.addMatchers(jasmine2Matchers);
     }
   });
 })();
