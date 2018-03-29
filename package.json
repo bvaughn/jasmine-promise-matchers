@@ -12,6 +12,8 @@
     "dist"
   ],
   "scripts": {
+    "build": "grunt build",
+    "prepublish": "npm build && npm test",
     "test": "grunt test"
   },
   "dependencies": {},
