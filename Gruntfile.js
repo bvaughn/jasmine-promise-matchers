@@ -43,6 +43,14 @@ module.exports = function(grunt) {
             cwd: 'jasmine-2.2'
           }
         }
+      },
+      jasmine3: {
+        command: 'npm run test',
+        options: {
+          execOptions: {
+            cwd: 'jasmine-3.1'
+          }
+        }
       }
     }
   });
